@@ -10,5 +10,6 @@ namespace PersonalHeathDataService.DataAccess
     interface IDataAccessService
     {
         UserInfo GetUser(string uid);
+        IEnumerable<UserInfo> GetUsers();
     }
 }

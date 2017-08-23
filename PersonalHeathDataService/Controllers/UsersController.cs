@@ -1,4 +1,5 @@
 ﻿using PersonalHeathDataService.DataAccess;
+using PersonalHeathDataService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ using System.Web.Http;
 
 namespace PersonalHeathDataService.Controllers
 {
-    [RoutePrefix("api/v1/users/{id}")]
+    [RoutePrefix("api/v1/users")]
     public class UsersController : ApiController
     {
         [HttpGet]
-        [Route]
+        [Route("{id}")]
         public IHttpActionResult GetUser(string id)
         {
             try
@@ -23,9 +24,16 @@ namespace PersonalHeathDataService.Controllers
             }
             catch (Exception ex)
             {
-                //return Ok(ex);
                 return InternalServerError(ex);
             }
+        }
+
+        [HttpGet]
+        [Route]
+        public IEnumerable<UserInfo> GetUsers()
+        {
+            var dataAccess = new DataAccessService();
+            return dataAccess.GetUsers();
         }
     }
 }
