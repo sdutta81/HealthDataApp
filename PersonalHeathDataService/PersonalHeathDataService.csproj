@@ -220,7 +220,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Test\testdata\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
