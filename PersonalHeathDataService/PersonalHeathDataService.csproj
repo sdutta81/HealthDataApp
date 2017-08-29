@@ -184,6 +184,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HttpActionResult.cs" />
+    <Compile Include="Models\AuthUserInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="OwinCallContext.cs" />
     <Compile Include="OwinContextMiddleware.cs" />

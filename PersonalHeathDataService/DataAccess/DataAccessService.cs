@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace PersonalHeathDataService.DataAccess
 {
@@ -16,6 +14,27 @@ namespace PersonalHeathDataService.DataAccess
         public DataAccessService()
         {
             connectionString = ConfigurationManager.ConnectionStrings["PHDConnectionDB"].ConnectionString;
+        }
+
+        public AuthUserInfo GetUserGuid(string uid, string pwd)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var cmd = new SqlCommand { Connection = connection };
+                cmd.CommandText = "SELECT Uid, Guid FROM USERS WHERE Uid = '" + uid + "' AND Password = '" + pwd + "'";
+                cmd.CommandType = CommandType.Text;
+
+                var reader = cmd.ExecuteReader();
+                var authUser = new AuthUserInfo();
+                while (reader.Read())
+                {
+                    authUser.Uid = reader["Uid"].ToString();
+                    authUser.Guid = reader["Guid"].ToString();
+                }
+
+                return authUser;
+            }
         }
 
         public UserInfo GetUser(string uid)
