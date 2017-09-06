@@ -10,13 +10,13 @@ namespace PersonalHeathDataService.Controllers
     public class UsersController : ApiController
     {
         [HttpGet]
-        [Route("{id}")]
-        public IHttpActionResult GetUser(string id)
+        [Route("{id}/{guid}")]
+        public IHttpActionResult GetUser(string id, string guid)
         {
             try
             {
                 var dataAccess = new DataAccessService();
-                var user = dataAccess.GetUser(id);
+                var user = dataAccess.GetUser(id, guid);
                 return Ok(user);
             }
             catch (Exception ex)
@@ -34,11 +34,16 @@ namespace PersonalHeathDataService.Controllers
         }
 
         [HttpPost]
-        [Route("{uid}/{pwd}")]
-        public IHttpActionResult PostUser(string uid, string pwd)
+        [Route]
+        public IHttpActionResult ValidateUser(LoginInfo loginInfo)
         {
+            if (loginInfo == null)
+            {
+                return BadRequest();
+            }
+
             var dataAccess = new DataAccessService();
-            var authUser = dataAccess.GetUserGuid(uid, pwd);
+            var authUser = dataAccess.GetUserGuid(loginInfo);
 
             if (authUser.Guid != null)
                 return Ok(authUser);

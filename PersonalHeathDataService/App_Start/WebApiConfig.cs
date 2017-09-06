@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace PersonalHeathDataService
 {
@@ -20,6 +21,9 @@ namespace PersonalHeathDataService
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

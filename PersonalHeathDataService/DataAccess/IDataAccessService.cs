@@ -5,8 +5,8 @@ namespace PersonalHeathDataService.DataAccess
 {
     interface IDataAccessService
     {
-        AuthUserInfo GetUserGuid(string uid, string pwd);
-        UserInfo GetUser(string uid);
+        AuthUserInfo GetUserGuid(LoginInfo loginInfo);
+        UserInfo GetUser(string uid, string guid);
         IEnumerable<UserInfo> GetUsers();
     }
 }

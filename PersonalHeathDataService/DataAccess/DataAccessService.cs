@@ -16,13 +16,13 @@ namespace PersonalHeathDataService.DataAccess
             connectionString = ConfigurationManager.ConnectionStrings["PHDConnectionDB"].ConnectionString;
         }
 
-        public AuthUserInfo GetUserGuid(string uid, string pwd)
+        public AuthUserInfo GetUserGuid(LoginInfo loginInfo)
         {
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 var cmd = new SqlCommand { Connection = connection };
-                cmd.CommandText = "SELECT Uid, Guid FROM USERS WHERE Uid = '" + uid + "' AND Password = '" + pwd + "'";
+                cmd.CommandText = "SELECT Uid, Guid FROM USERS WHERE Uid = '" + loginInfo.Uid + "' AND Password = '" + loginInfo.Pwd + "'";
                 cmd.CommandType = CommandType.Text;
 
                 var reader = cmd.ExecuteReader();
@@ -37,13 +37,13 @@ namespace PersonalHeathDataService.DataAccess
             }
         }
 
-        public UserInfo GetUser(string uid)
+        public UserInfo GetUser(string uid, string guid)
         {
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 var cmd = new SqlCommand { Connection = connection };
-                cmd.CommandText = "SELECT UR.Uid, UR.Password, UR.FirstName, UR.MiddleName, UR.LastName, UR.Dob, CO.Name CountryName, CO.SName, UR.Phone, UR.Cell, UR.Email FROM Users UR INNER JOIN Country CO ON UR.Country = CO.Id WHERE UR.Uid = '" + uid + "'";
+                cmd.CommandText = "SELECT UR.Uid, UR.Guid, UR.FirstName, UR.MiddleName, UR.LastName, UR.Dob, CO.Name CountryName, CO.SName, UR.Phone, UR.Cell, UR.Email FROM Users UR INNER JOIN Country CO ON UR.Country = CO.Id WHERE UR.Uid = '" + uid + "' And UR.Guid = '" + guid + "'";
                 cmd.CommandType = CommandType.Text;
 
                 var reader = cmd.ExecuteReader();
@@ -52,6 +52,7 @@ namespace PersonalHeathDataService.DataAccess
                 while (reader.Read())
                 {
                     user.Uid = reader["Uid"].ToString();
+                    user.Guid = reader["Guid"].ToString();
                     user.FirstName = reader["FirstName"].ToString();
                     user.MiddleName = reader["Phone"] == null ? "" : reader["MiddleName"].ToString();
                     user.LastName = reader["LastName"].ToString();
