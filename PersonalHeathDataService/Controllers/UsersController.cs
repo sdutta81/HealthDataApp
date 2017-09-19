@@ -9,13 +9,19 @@ namespace PersonalHeathDataService.Controllers
     [RoutePrefix("api/v1/users")]
     public class UsersController : ApiController
     {
+        private IDataAccessService dataAccess;
+
+        public UsersController(IDataAccessService da)
+        {
+            dataAccess = da;
+        }
+
         [HttpGet]
         [Route("{id}/{guid}")]
         public IHttpActionResult GetUser(string id, string guid)
         {
             try
             {
-                var dataAccess = new DataAccessService();
                 var user = dataAccess.GetUser(id, guid);
                 return Ok(user);
             }
@@ -29,7 +35,6 @@ namespace PersonalHeathDataService.Controllers
         [Route]
         public IEnumerable<UserInfo> GetUsers()
         {
-            var dataAccess = new DataAccessService();
             return dataAccess.GetUsers();
         }
 
@@ -42,7 +47,6 @@ namespace PersonalHeathDataService.Controllers
                 return BadRequest();
             }
 
-            var dataAccess = new DataAccessService();
             var authUser = dataAccess.GetUserGuid(loginInfo);
 
             if (authUser.Guid != null)

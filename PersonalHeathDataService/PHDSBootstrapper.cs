@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using PersonalHeathDataService.DataAccess;
 using System;
 using System.Reflection;
 
@@ -12,6 +13,9 @@ namespace PersonalHeathDataService
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<OwinContextMiddleware>();
+            builder.RegisterType<DataAccessService>()
+                .As<IDataAccessService>()
+                .SingleInstance();
         }
 
         public static Assembly Assembly

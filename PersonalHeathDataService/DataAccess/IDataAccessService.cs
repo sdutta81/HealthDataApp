@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PersonalHeathDataService.DataAccess
 {
-    interface IDataAccessService
+    public interface IDataAccessService
     {
         AuthUserInfo GetUserGuid(LoginInfo loginInfo);
         UserInfo GetUser(string uid, string guid);
