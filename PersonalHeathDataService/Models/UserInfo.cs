@@ -26,5 +26,7 @@ namespace PersonalHeathDataService.Models
         public string Cell { get; set; }
         [DataMember(Name = "email")]
         public string Email { get; set; }
+        [DataMember(Name = "address")]
+        public string Address { get; set; }
     }
 }
