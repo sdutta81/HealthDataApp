@@ -16,6 +16,8 @@ namespace PersonalHeathDataService.Models
         public string MiddleName { get; set; }
         [DataMember(Name = "lastName")]
         public string LastName { get; set; }
+        [DataMember(Name = "password")]
+        public string Password { get; set; }
         [DataMember(Name = "dob")]
         public DateTime Dob { get; set; }
         [DataMember(Name = "country")]

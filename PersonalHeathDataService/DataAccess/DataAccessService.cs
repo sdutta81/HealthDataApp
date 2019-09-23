@@ -56,6 +56,7 @@ namespace PersonalHeathDataService.DataAccess
                     user.FirstName = reader["FirstName"].ToString();
                     user.MiddleName = reader["Phone"] == null ? "" : reader["MiddleName"].ToString();
                     user.LastName = reader["LastName"].ToString();
+                    user.Password = reader["Password"].ToString();
                     user.Dob = Convert.ToDateTime(reader["Dob"].ToString());
                     user.Country = reader["CountryName"].ToString();
                     user.Phone = reader["Phone"] == null ? "" : reader["Phone"].ToString();
